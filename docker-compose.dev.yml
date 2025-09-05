@@ -1,0 +1,25 @@
+services:
+  # Astro Development Server - Build local for hot reload
+  astro-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4321:4321"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      # Configure these to match your existing backend container ports
+      - BACKEND_API_URL=${BACKEND_API_URL:-http://host.docker.internal:8080/api}
+      - WP_API_URL=${WP_API_URL:-http://host.docker.internal:8000/wp-json/wp/v2}
+      - NODE_API_URL=${NODE_API_URL:-http://host.docker.internal:3001/api}
+      - PYTHON_API_URL=${PYTHON_API_URL:-http://host.docker.internal:8001}
+      - DOTNET_API_URL=${DOTNET_API_URL:-http://host.docker.internal:5000}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+    # Enable access to host containers
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

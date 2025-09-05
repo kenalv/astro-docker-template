@@ -28,6 +28,9 @@ dist/
 *.swo
 *~
 
+# Internal development files
+copilot-instructions.md
+
 # OS generated files
 .DS_Store
 .DS_Store?

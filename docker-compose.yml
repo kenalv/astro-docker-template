@@ -1,0 +1,43 @@
+services:
+  # Astro Frontend - Production Configuration
+  astro:
+    image: YOUR_REGISTRY/YOUR_PROJECT:latest
+    pull_policy: always
+    environment:
+      - NODE_ENV=production
+      # Configure these URLs to point to your existing backend containers
+      - BACKEND_API_URL=${BACKEND_API_URL:-http://host.docker.internal:8080/api}
+      - WP_API_URL=${WP_API_URL:-http://host.docker.internal:8000/wp-json/wp/v2}
+      - NODE_API_URL=${NODE_API_URL:-http://host.docker.internal:3001/api}
+      - PYTHON_API_URL=${PYTHON_API_URL:-http://host.docker.internal:8001}
+      - DOTNET_API_URL=${DOTNET_API_URL:-http://host.docker.internal:5000}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - webapps
+    labels:
+      # Enable Traefik for this service
+      - "traefik.enable=true"
+      
+      # HTTP Router - Redirects to HTTPS
+      - "traefik.http.routers.astro.rule=Host(`${DOMAIN:-yourdomain.com}`) || Host(`www.${DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.astro.entrypoints=web"
+      - "traefik.http.routers.astro.middlewares=redirect-to-https"
+      
+      # HTTPS Router
+      - "traefik.http.routers.astro-secure.rule=Host(`${DOMAIN:-yourdomain.com}`) || Host(`www.${DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.astro-secure.entrypoints=websecure"
+      - "traefik.http.routers.astro-secure.tls=true"
+      - "traefik.http.routers.astro-secure.tls.certresolver=le"
+      
+      # Service configuration
+      - "traefik.http.services.astro.loadbalancer.server.port=4321"
+      
+      # Middleware for HTTP to HTTPS redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+
+networks:
+  webapps:
+    external: true
+    name: webapps

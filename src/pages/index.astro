@@ -1,0 +1,129 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Astro Docker Template">
+  <div class="hero">
+    <h1>🚀 Astro Docker Template</h1>
+    <p>A production-ready Astro template designed to connect with your existing backend containers!</p>
+    
+    <div class="hero-links">
+      <a href="/api-test" class="btn btn-primary">Test API Connections</a>
+      <a href="https://docs.astro.build" class="btn btn-secondary" target="_blank">Documentation</a>
+    </div>
+  </div>
+
+  <div class="features">
+    <h2>✨ Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>🐳 Docker Ready</h3>
+        <p>Development and production Docker configurations included</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔧 Multi-Backend</h3>
+        <p>Connect to WordPress, Node.js, Python, .NET and more</p>
+      </div>
+      <div class="feature-card">
+        <h3>🚀 CI/CD</h3>
+        <p>GitHub Actions workflow for automatic deployment</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔒 Production Ready</h3>
+        <p>SSL, reverse proxy, and security configurations</p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .hero {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ccc;
+  }
+  
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background: rgb(var(--accent));
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background: rgb(var(--accent-dark));
+    transform: translateY(-2px);
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    color: rgb(var(--accent-light));
+    border: 2px solid rgb(var(--accent));
+  }
+  
+  .btn-secondary:hover {
+    background: rgb(var(--accent));
+    color: white;
+  }
+  
+  .features {
+    margin-top: 80px;
+  }
+  
+  .features h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--accent), 0.3);
+  }
+  
+  .feature-card h3 {
+    color: rgb(var(--accent-light));
+    margin-bottom: 1rem;
+  }
+  
+  .feature-card p {
+    color: #ccc;
+    line-height: 1.6;
+  }
+</style>
